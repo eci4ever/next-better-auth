@@ -2,8 +2,13 @@
 
 import { redirect } from "next/navigation";
 import { auth } from "./auth";
+import { APIError } from "better-auth";
 
-export async function signUp(data: FormData) {
+interface State {
+  errorMessage?: string | null;
+}
+
+export async function signUp(prevState: State, data: FormData) {
   // console.log("Sign Up Data:", data);
   const rawFormData = {
     name: data.get("name") as string,
@@ -18,7 +23,51 @@ export async function signUp(data: FormData) {
       body: { name, email, password },
     });
   } catch (error) {
-    console.error("Sign Up Error:", error);
+    if (error instanceof APIError) {
+      switch (error.status) {
+        case "UNPROCESSABLE_ENTITY":
+          return { errorMessage: "User already exists." };
+        case "BAD_REQUEST":
+          return { errorMessage: "Invalid email." };
+        default:
+          return { errorMessage: "Something went wrong." };
+      }
+    }
+    console.error("sign in with email has not worked", error);
+    throw error;
+  }
+  redirect("/dashboard");
+}
+
+export async function signIn(prevState: State, formData: FormData) {
+  const rawFormData = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
+  const { email, password } = rawFormData;
+  console.log(email, password);
+  try {
+    await auth.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+    });
+    console.log("Signed in");
+  } catch (error) {
+    if (error instanceof APIError) {
+      switch (error.status) {
+        case "UNAUTHORIZED":
+          return { errorMessage: "User Not Found." };
+        case "BAD_REQUEST":
+          return { errorMessage: "Invalid email." };
+        default:
+          return { errorMessage: "Something went wrong." };
+      }
+    }
+    console.error("sign in with email has not worked", error);
+    throw error;
   }
   redirect("/dashboard");
 }
