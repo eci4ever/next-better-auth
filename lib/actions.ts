@@ -33,7 +33,7 @@ export async function signUp(prevState: State, data: FormData) {
           return { errorMessage: "Something went wrong." };
       }
     }
-    console.error("sign in with email has not worked", error);
+    // Log sign up error for debugging
     throw error;
   }
   redirect("/dashboard");
@@ -46,7 +46,7 @@ export async function signIn(prevState: State, formData: FormData) {
   };
 
   const { email, password } = rawFormData;
-  console.log(email, password);
+  // Log credentials for debugging
   try {
     await auth.api.signInEmail({
       body: {
@@ -54,7 +54,7 @@ export async function signIn(prevState: State, formData: FormData) {
         password,
       },
     });
-    console.log("Signed in");
+    // Log successful sign in
   } catch (error) {
     if (error instanceof APIError) {
       switch (error.status) {
@@ -66,7 +66,7 @@ export async function signIn(prevState: State, formData: FormData) {
           return { errorMessage: "Something went wrong." };
       }
     }
-    console.error("sign in with email has not worked", error);
+    // Log sign up error for debugging
     throw error;
   }
   redirect("/dashboard");
