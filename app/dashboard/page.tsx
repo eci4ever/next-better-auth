@@ -26,6 +26,7 @@ export default async function Page() {
   }
 
   const user = session.user;
+  // console.log(user);
 
   return (
     <SidebarProvider>
@@ -47,7 +48,9 @@ export default async function Page() {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>
+                    Welcome {user.name}
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
