@@ -35,33 +35,33 @@ import {
 } from "@/components/ui/sidebar";
 
 const getNavData = (userRole?: string) => {
-  const baseNav: Array<{
-    title: string;
-    url: string;
-    icon: any;
-    isActive?: boolean;
-    items?: Array<{
-      title: string;
-      url: string;
-    }>;
-  }> = [
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-      isActive: true,
-    },
-    {
-      title: "Invoices",
-      url: "/dashboard/invoices",
-      icon: FileText,
-    },
-    {
-      title: "Customers",
-      url: "/dashboard/customers",
-      icon: UserCheck,
-    },
-  ];
+	const baseNav: Array<{
+		title: string;
+		url: string;
+		icon: any;
+		isActive?: boolean;
+		items?: Array<{
+			title: string;
+			url: string;
+		}>;
+	}> = [
+		{
+			title: "Dashboard",
+			url: "/dashboard",
+			icon: LayoutDashboard,
+			isActive: true,
+		},
+		{
+			title: "Invoices",
+			url: "/dashboard/invoices",
+			icon: FileText,
+		},
+		{
+			title: "Customers",
+			url: "/dashboard/customers",
+			icon: UserCheck,
+		},
+	];
 
 	// Add admin-specific navigation
 	if (userRole === "admin") {

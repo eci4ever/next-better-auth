@@ -1,6 +1,10 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { AppSidebar } from "@/components/app-sidebar";
+import { DashboardStats } from "@/components/dashboard/dashboard-stats";
+import { InvoiceChart } from "@/components/dashboard/invoice-chart";
+import { QuickActions } from "@/components/dashboard/quick-actions";
+import { RecentInvoices } from "@/components/dashboard/recent-invoices";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -16,10 +20,6 @@ import {
 	SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth";
-import { DashboardStats } from "@/components/dashboard/dashboard-stats";
-import { InvoiceChart } from "@/components/dashboard/invoice-chart";
-import { RecentInvoices } from "@/components/dashboard/recent-invoices";
-import { QuickActions } from "@/components/dashboard/quick-actions";
 
 export default async function Page() {
 	const session = await auth.api.getSession({
